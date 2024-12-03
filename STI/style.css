@@ -86,8 +86,9 @@ h1, h2 {
 
 /* Button Styles */
 #clicktoconvert, .send, .btn-primary {
-    background: linear-gradient(135deg, #FF6B6B, #FF4757);
-    color: white;
+    background: linear-gradient(135deg, #b1eaf1, #6dede7);
+    color: black;
+    font-weight: bold;
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
