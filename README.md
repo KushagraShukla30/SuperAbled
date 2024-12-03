@@ -13,6 +13,8 @@ SuperAbled is an innovative communication tool designed to empower individuals w
     
 ## Try it Yourself
 
+Launch Index.html in the root folder
+
 Run on localhost
 
 http://localhost:3000/SuperAbled/
