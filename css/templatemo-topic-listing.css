@@ -542,8 +542,33 @@ strong {
   padding: 30px;
   transition: all 0.3s ease;
   height: 300px;
+  
+  /* Light gradient background */
+  background: linear-gradient(to bottom, #72c9d6, #ffffff);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  
+  /* Add hover effect */
+  cursor: pointer;
+}
+.custom-block:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Styling for the headings */
+.custom-block h1 {
+  font-size: 24px;
+  color: #00796b; /* Teal for contrast */
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+
+.custom-block h2 {
+  font-size: 18px;
+  color: #004d40; /* Darker teal for the secondary heading */
+  margin: 0;
+  font-weight: normal;
+}
 .custom-block:hover {
   background-color: var(--secondary-color);
   transform: translateY(-3px);
