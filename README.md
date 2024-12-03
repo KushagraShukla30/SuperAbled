@@ -1,8 +1,8 @@
 
-![Logo](https://i.ibb.co/HDKMSyg/image-removebg-preview.png)
+![Logo](https://i.ibb.co/DbGt5GX/image-removebg-previewwhite.png)
 
 
-## PeerLoop
+## SuperAbled
 
 SuperAbled is an innovative communication tool designed to empower individuals with disabilities by enhancing their ability to connect, share, and express themselves. Our platform offers various functionalities and communication modes tailored to meet diverse needs, ensuring an inclusive experience for all users.
 
