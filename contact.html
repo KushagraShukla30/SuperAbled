@@ -24,34 +24,28 @@
                     <a class="navbar-brand" href="index.html">
                         <img src="images/logos/LogoB_NoBG.png" height="80" alt="Your Logo"> 
                     </a>
+                    <div class="d-lg-none ms-auto me-4">
+                        <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                    </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-lg-5 me-lg-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.html">Home</a>
+                                <a class="nav-link click-scroll" href="index.html">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="contact.html">Contact</a>
+                                <a class="nav-link click-scroll" href="index.html#section_5">Contact</a>
                             </li>
                         </ul>
+                        <div class="d-none d-lg-block">
+                        </div>
                     </div>
                 </div>
             </nav>
 
             <!-- Contact Section -->
-            <section class="hero-section d-flex justify-content-center align-items-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-12 mx-auto text-center">
-                            <h1 class="text-white">Contact Us</h1>
-                            <h6 class="text-white-50">We'd love to hear from you</h6>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <section class="contact-section section-padding">
                 <div class="container">
                     <div class="row">
@@ -68,9 +62,6 @@
                                 <a href="https://www.linkedin.com/in/shukla-kushagra" target="_blank" style="color: blue;">LinkedIn</a>
                               </p>
                             <ul class="list-unstyled">
-                                <li><i class="bi bi-geo-alt-fill me-2"></i> Address: Your Location</li>
-                                <li><i class="bi bi-envelope-fill me-2"></i> Email: info@superabled.com</li>
-                                <li><i class="bi bi-telephone-fill me-2"></i> Phone: +123 456 7890</li>
                             </ul>
                         </div>
                         <div class="col-lg-6 col-md-12">
@@ -80,7 +71,6 @@
             </section>
         </main>
 
-        <!-- Footer -->
         <footer class="site-footer section-padding">
             <div class="container">
                 <div class="row">
@@ -95,21 +85,36 @@
                             <li class="site-footer-link-item">
                                 <a href="index.html" class="site-footer-link">Home</a>
                             </li>
-                            <li class="site-footer-link-item">
-                                <a href="contact.html" class="site-footer-link">Contact</a>
-                            </li>
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-4 col-6 mb-4 mb-lg-0">
                         <h6 class="site-footer-title mb-3">Information</h6>
-                        <p class="text-white">Kushagra & Abhimanyu @ DSCE</p>
+                        <p class="text-white d-flex mb-1">
+                            <a class="site-footer-link">
+                                Kushagra & Abhimanyu @ DSCE
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-12 mt-4 mt-lg-0 ms-auto">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                English
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item" type="button">Hindi</button></li>
+                                <li><button class="dropdown-item" type="button">Kannada</button></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </footer>
 
-        <!-- JS Files -->
+        <!-- JAVASCRIPT FILES -->
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
     </body>
 </html>
