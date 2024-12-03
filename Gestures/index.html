@@ -3,97 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hand Tracking with Handtrack.js</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Gesture Detection with MediaPipe Hands</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    video, canvas {
+      border: 2px solid #0063FF;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      margin: 10px;
+    }
+
+    video {
+      display: block;
+    }
+
+    #gesture-label {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #0063FF;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 </head>
 <body>
-    <h1>Hand Gesture Detection</h1>
-    <div class="container">
-      <video id="myvideo" class="canvasbox" autoplay muted playsinline style="display: none;"></video>
-      <canvas id="canvas" class="canvasbox"></canvas>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"></script>
-    <script>
-      const video = document.getElementById('myvideo');
-      const canvas = document.getElementById('canvas');
-      const context = canvas.getContext('2d');
-      let model = null;
-  
-      const modelParams = {
-        flipHorizontal: true,
-        maxNumBoxes: 1, // Detect one hand at a time
-        iouThreshold: 0.5,
-        scoreThreshold: 0.6,
-      };
-  
-      // Gesture-specific functions
-      function onOpenHand() {
-        console.log("Open hand detected");
+  <h1>Gesture Detection with MediaPipe Hands</h1>
+  <video id="myvideo" autoplay playsinline width="640" height="480"></video>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <div id="gesture-label">Gesture: <span id="gesture-result">None</span></div>
+
+  <script>
+    const video = document.getElementById('myvideo');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const gestureResult = document.getElementById('gesture-result');
+
+    const hands = new Hands({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
+    });
+
+    hands.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.7,
+      minTrackingConfidence: 0.7,
+    });
+
+    hands.onResults((results) => {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (results.multiHandLandmarks.length > 0) {
+        const landmarks = results.multiHandLandmarks[0];
+        drawConnectors(context, landmarks, HAND_CONNECTIONS, { color: '#00FF00', lineWidth: 4 });
+        drawLandmarks(context, landmarks, { color: '#FF0000', lineWidth: 2 });
+
+        // Detect gestures
+        if (isOpenHand(landmarks)) {
+          gestureResult.textContent = "Open Hand";
+        } else {
+          gestureResult.textContent = "Unknown";
+        }
+      } else {
+        gestureResult.textContent = "None";
       }
-  
-      function onClosedHand() {
-        console.log("Closed hand detected");
-      }
-  
-      function onPinch() {
-        console.log("Pinch gesture detected");
-      }
-  
-      function onPoint() {
-        console.log("Point gesture detected");
-      }
-  
-      // Analyze predictions for gesture detection
-      function detectGestures(predictions) {
-        predictions.forEach(prediction => {
-          const { bbox, score } = prediction;
-          const [x, y, width, height] = bbox;
-  
-          // Example gesture detection logic (simplified):
-          if (width > 150 && height > 150) {
-            // Assume an open hand if the bounding box is large
-            onOpenHand();
-          } else if (width < 100 && height < 100) {
-            // Assume a closed hand if the bounding box is small
-            onClosedHand();
-          } else if (width > 100 && width < 150 && height > 50 && height < 100) {
-            // Assume a pinch gesture
-            onPinch();
-          } else if (width < 70 && height > 150) {
-            // Assume a point gesture
-            onPoint();
-          }
-        });
-      }
-  
-      // Start video and model detection
-      function startVideo() {
-        handTrack.startVideo(video).then(function (status) {
-          if (status) {
-            detectHand();
-          } else {
-            console.log('Please enable your webcam');
-          }
-        });
-      }
-  
-      // Detect hands and render predictions
-      function detectHand() {
-        model.detect(video).then(predictions => {
-          context.clearRect(0, 0, canvas.width, canvas.height);
-          model.renderPredictions(predictions, canvas, context, video);
-  
-          detectGestures(predictions); // Analyze gestures
-  
-          requestAnimationFrame(detectHand);
-        });
-      }
-  
-      // Load the model and start
-      handTrack.load(modelParams).then(lmodel => {
-        model = lmodel;
-        startVideo();
+    });
+
+    const isOpenHand = (landmarks) => {
+      // Example logic: Check if fingertips are extended
+      return landmarks[8].y < landmarks[6].y && // Index finger extended
+             landmarks[12].y < landmarks[10].y && // Middle finger extended
+             landmarks[16].y < landmarks[14].y && // Ring finger extended
+             landmarks[20].y < landmarks[18].y;   // Pinky extended
+    };
+
+    const startVideo = async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      video.srcObject = stream;
+      video.play();
+
+      const camera = new Camera(video, {
+        onFrame: async () => {
+          await hands.send({ image: video });
+        },
+        width: 640,
+        height: 480,
       });
-    </script>
-  </body>
+      camera.start();
+    };
+
+    startVideo();
+  </script>
+</body>
 </html>
