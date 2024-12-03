@@ -1,75 +1,106 @@
-*{
+/* General styles */
+body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-html{
-    font-family: 'Gulzar', serif;;
-    font-size: 20px;
-}
-section{
-    min-height: 100vh;
-    width: 100%;
+    background: linear-gradient(135deg, #e3eeff, #f3e7e9);
+    color: #333;
     display: flex;
-    align-items: flex-start;
-    background-color: cadetblue;
-    flex-direction: column;
-    padding: 50px 0;
-}
-section h2{
-    color: black;
-    text-align: center;
-    width: 100%;
-    margin-bottom: 10px;
-}
-section p{
-    color: black;
-    text-align: center;
-    width: 100%;
-    margin-bottom:40px;
-}
-.container{
-    width: 90%;
-    max-width: 500px;
-    margin: 0 auto;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
-.container input{
-    width: 75%;
-    border-radius: 8px;
-    border-color: bisque;
+
+/* Section container */
+section {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Heading */
+section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #444;
+    text-transform: uppercase;
+}
+
+/* Text input and button container */
+.textb {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Input field styling */
+.textb input {
+    flex: 1;
     padding: 10px;
-    font-size: 19px;
-    text-align: left;
-}
-.container button{
-    width: 55px;
+    font-size: 16px;
     border: none;
     outline: none;
-    border-radius: 8px;
-    padding: 10px;
-    font-size: 19px;
+    font-family: inherit;
+    color: #333;
+}
+
+.textb input::placeholder {
+    color: #aaa;
+}
+
+/* Button styling */
+.textb button {
+    padding: 15px 25px; /* Increased padding for a larger button */
+    background-color: #4caf50;
+    color: #fff;
+    font-size: 20px; /* Increased font size */
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
-.text p{
-    color: black;
-    text-align: left;
-    background-color: white;
-    padding: 10px;
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
+
+.textb button:hover {
+    background-color: #45a049;
+    transform: translateY(-3px); /* Slightly more pronounced hover effect */
 }
-.textb{
-    color: black;
-    text-align: left;
-    background-color: white;
-    padding: 10px;
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
+
+.textb button:active {
+    background-color: #3e8e41;
+    transform: translateY(0);
 }
-.text p.reply{
-    text-align: right;
-    background-color: antiquewhite;
+
+/* Icon in the button */
+.textb button i {
+    font-size: 24px; /* Increased icon size to match the larger button */
+    vertical-align: middle;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    section {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .textb button {
+        padding: 8px 15px;
+    }
+
+    .textb input {
+        font-size: 14px;
+    }
+
+    section h2 {
+        font-size: 20px;
+    }
 }
