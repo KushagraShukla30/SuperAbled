@@ -12,7 +12,7 @@ https://templatemo.com/tm-590-topic-listing
 :root {
   --white-color:                  #ffffff;
   --primary-color:                #13547a;
-  --secondary-color:              #80d0c7;
+  --secondary-color:               #90f8f5;
   --section-bg-color:             #f0f8ff;
   --custom-btn-bg-color:          #80d0c7;
   --custom-btn-bg-hover-color:    #13547a;
@@ -312,7 +312,7 @@ strong {
 
 .navbar-nav .nav-link {
   display: inline-block;
-  color: var(--white-color);
+  color: var(#13547a);
   font-family: var(--title-font-family); 
   font-size: var(--menu-font-size);
   font-weight: var(--font-weight-medium);
@@ -524,8 +524,8 @@ strong {
   TOPICS              
 -----------------------------------------*/
 .featured-section {
-  /* background-color: var(--secondary-color); */
-  border-radius: 0 0 100px 100px;
+  background: linear-gradient(135deg, #a2c2ff, #d1e4ff); /* Light blue gradient */
+  background-color: var(--secondary-color); /* Ensures fallback color if gradient isn't supported */
   padding-bottom: 100px;
 }
 
@@ -541,45 +541,18 @@ strong {
   overflow: hidden;
   padding: 30px;
   transition: all 0.3s ease;
-  height: 300px;
-  
-  /* Light gradient background */
-  background: linear-gradient(to bottom, #72c9d6, #ffffff);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  
-  /* Add hover effect */
-  cursor: pointer;
-}
-.custom-block:hover {
-  transform: translateY(-5px); /* Slight lift on hover */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  background: linear-gradient(135deg, #dbe5f9, #81cfde); /* Light blue gradient */
 }
 
-/* Styling for the headings */
-.custom-block h1 {
-  font-size: 24px;
-  color: #00796b; /* Teal for contrast */
-  margin: 0 0 10px;
-  font-weight: bold;
-}
-
-.custom-block h2 {
-  font-size: 18px;
-  color: #004d40; /* Darker teal for the secondary heading */
-  margin: 0;
-  font-weight: normal;
-}
 .custom-block:hover {
-  background-color: var(--secondary-color);
+  background: linear-gradient(135deg, #91bbf8, #a9cef1); /* Slightly darker light blue on hover */
   transform: translateY(-3px);
 }
 
 .custom-block > a {
   width: 100%;
 }
-
-
-
 
 .custom-block-image {
   display: block;
@@ -955,7 +928,7 @@ blockquote {
   SITE FOOTER              
 -----------------------------------------*/
 .site-footer {
-  border-bottom: 10px solid var(--secondary-color);
+  border-bottom: 10px solid var(--primary-color);
   position: relative;
 }
 
@@ -1001,7 +974,7 @@ blockquote {
 }
 
 .site-footer .dropdown-toggle {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
   border-color: var(--white-color);
 }
 
@@ -1021,7 +994,7 @@ blockquote {
 }
 
 .site-footer-link {
-  color: var(--secondary-color);
+  color: var(--primary-color);
   font-size: var(--copyright-font-size);
   font-weight: var(--font-weight-medium);
   line-height: normal;
