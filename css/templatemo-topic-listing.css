@@ -524,7 +524,7 @@ strong {
   TOPICS              
 -----------------------------------------*/
 .featured-section {
-  background: linear-gradient(135deg, #a2c2ff, #d1e4ff); /* Light blue gradient */
+  background: linear-gradient(0deg, #88cac7, #d1e4ff); /* Light blue gradient */
   background-color: var(--secondary-color); /* Ensures fallback color if gradient isn't supported */
   padding-bottom: 100px;
 }
