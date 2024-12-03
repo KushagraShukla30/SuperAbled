@@ -6,7 +6,6 @@
 
 SuperAbled is an innovative communication tool designed to empower individuals with disabilities by enhancing their ability to connect, share, and express themselves. Our platform offers various functionalities and communication modes tailored to meet diverse needs, ensuring an inclusive experience for all users.
 
-**This is a desktop website only!**
 
 
 
