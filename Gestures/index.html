@@ -3,20 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gesture Detection with MediaPipe Hands</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <title>Advanced Gesture Detection</title>
   <style>
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
-      background-color: #f4f4f4;
+      background-color: #f9f9f9;
     }
 
     h1 {
@@ -25,22 +22,24 @@
       margin-bottom: 20px;
     }
 
-    video, canvas {
-      border: 2px solid #0063FF;
-      border-radius: 10px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-      margin: 10px;
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
     }
 
-    video {
-      display: block;
+    video, canvas {
+      border: 2px solid #4CAF50;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     #gesture-label {
       margin-top: 20px;
-      font-size: 1.5rem;
+      font-size: 3rem; /* Twice as big as before */
       font-weight: bold;
-      color: #0063FF;
+      color: #4CAF50;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
@@ -48,9 +47,11 @@
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 </head>
 <body>
-  <h1>Gesture Detection with MediaPipe Hands</h1>
-  <video id="myvideo" autoplay playsinline width="640" height="480"></video>
-  <canvas id="canvas" width="640" height="480"></canvas>
+  <h1>Advanced Gesture Detection</h1>
+  <div class="video-container">
+    <video id="myvideo" autoplay playsinline width="640" height="480"></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+  </div>
   <div id="gesture-label">Gesture: <span id="gesture-result">None</span></div>
 
   <script>
@@ -79,23 +80,91 @@
         drawLandmarks(context, landmarks, { color: '#FF0000', lineWidth: 2 });
 
         // Detect gestures
-        if (isOpenHand(landmarks)) {
-          gestureResult.textContent = "Open Hand";
+        if (isVictoryGesture(landmarks)) {
+            gestureResult.style.color="red";
+          gestureResult.textContent = "Medication";
+        }  else if (isRockGesture(landmarks)) {
+            gestureResult.style.color="green";
+          gestureResult.textContent = "Happy";
+        } else if (isOkGesture(landmarks)) {
+            gestureResult.style.color="#ffa700";
+          gestureResult.textContent = "OK";
+        } else if (isOpenHand(landmarks)) {
+            gestureResult.style.color="green";
+          gestureResult.textContent = "Hello";
+        } else if (isClosedHand(landmarks)) {
+            gestureResult.style.color="red";
+          gestureResult.textContent = "HELP";
+        } else if (isPointingGesture(landmarks)) {
+            gestureResult.style.color="red";
+          gestureResult.textContent = "Washroom";
         } else {
+            gestureResult.style.color="grey";
           gestureResult.textContent = "Unknown";
         }
       } else {
+        gestureResult.style.color="grey";
         gestureResult.textContent = "None";
       }
     });
 
+    // Gesture detection functions
+
+    // Victory: Index and middle fingers extended, others bent
+    const isVictoryGesture = (landmarks) => {
+      return landmarks[8].y < landmarks[6].y && // Index finger extended
+             landmarks[12].y < landmarks[10].y && // Middle finger extended
+             landmarks[16].y > landmarks[14].y && // Ring finger bent
+             landmarks[20].y > landmarks[18].y;   // Pinky bent
+    };
+
+    // Rock Gesture: Index and pinky fingers extended, others bent
+    const isRockGesture = (landmarks) => {
+      return landmarks[8].y < landmarks[6].y && // Index finger extended
+             landmarks[12].y > landmarks[10].y && // Middle finger bent
+             landmarks[16].y > landmarks[14].y && // Ring finger bent
+             landmarks[20].y < landmarks[18].y;   // Pinky extended
+    };
+
+    // OK Gesture: Thumb and index form a circle, other fingers extended
+    const isOkGesture = (landmarks) => {
+      const thumbTip = landmarks[4];
+      const indexTip = landmarks[8];
+      const distance = Math.sqrt(
+        Math.pow(thumbTip.x - indexTip.x, 2) +
+        Math.pow(thumbTip.y - indexTip.y, 2) +
+        Math.pow(thumbTip.z - indexTip.z, 2)
+      );
+      return distance < 0.1 && // Thumb and index close
+             landmarks[12].y < landmarks[10].y && // Middle finger extended
+             landmarks[16].y < landmarks[14].y && // Ring finger extended
+             landmarks[20].y < landmarks[18].y;   // Pinky extended
+    };
+
+    // Open Hand: All fingers extended
     const isOpenHand = (landmarks) => {
-      // Example logic: Check if fingertips are extended
       return landmarks[8].y < landmarks[6].y && // Index finger extended
              landmarks[12].y < landmarks[10].y && // Middle finger extended
              landmarks[16].y < landmarks[14].y && // Ring finger extended
              landmarks[20].y < landmarks[18].y;   // Pinky extended
     };
+
+    // Closed Hand: All fingertips are below their MCP joints
+    const isClosedHand = (landmarks) => {
+      return landmarks[8].y > landmarks[6].y && // Index finger bent
+             landmarks[12].y > landmarks[10].y && // Middle finger bent
+             landmarks[16].y > landmarks[14].y && // Ring finger bent
+             landmarks[20].y > landmarks[18].y;   // Pinky bent
+    };
+
+    // Pointing Gesture: Only index finger extended
+    const isPointingGesture = (landmarks) => {
+      return landmarks[8].y < landmarks[6].y && // Index finger extended
+             landmarks[12].y > landmarks[10].y && // Middle finger bent
+             landmarks[16].y > landmarks[14].y && // Ring finger bent
+             landmarks[20].y > landmarks[18].y;   // Pinky bent
+    };
+
 
     const startVideo = async () => {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
