@@ -50,7 +50,6 @@ JS, Clipdrop API (speech to image)
 
 ## Screenshots
 
-![App Screenshot](https://i.ibb.co/M7r0G6p/image.png)
 ![App Screenshot](https://i.ibb.co/F6YZzr1/image.png)
 ![App Screenshot](https://i.ibb.co/ZJ6GwKc/image.png)
 ![App Screenshot](https://i.ibb.co/cvMyf9C/image.png)
