@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" src="style.css">
   <title>Advanced Gesture Detection</title>
   <style>
+
+    
     body {
       font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #3498db, #84b1da);
+
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -39,14 +44,26 @@
       margin-top: 20px;
       font-size: 3rem; /* Twice as big as before */
       font-weight: bold;
-      color: #4CAF50;
+      color: #000000;
     }
+    .logo-container {
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 </head>
 <body>
+  <div class="logo-container">
+    <a href="../index.html"><img src="/SuperAbled/images/logos/LogoB_NoBG.png" alt="Logo" class="logo"></a> 
+</div>
   <h1>Advanced Gesture Detection</h1>
   <div class="video-container">
     <video id="myvideo" autoplay playsinline width="640" height="480"></video>
@@ -99,11 +116,11 @@
             gestureResult.style.color="red";
           gestureResult.textContent = "Washroom";
         } else {
-            gestureResult.style.color="grey";
+            gestureResult.style.color="black";
           gestureResult.textContent = "Unknown";
         }
       } else {
-        gestureResult.style.color="grey";
+        gestureResult.style.color="black";
         gestureResult.textContent = "None";
       }
     });
