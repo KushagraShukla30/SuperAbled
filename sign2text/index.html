@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gesture to Translation</title>
-  <div class="logo-container">
-    <a href="../index.html"><img src="../images/logos/LogoB_NoBG.png" alt="Logo" class="logo"></a>
-</div>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -77,12 +74,25 @@
       padding: 10px;
       font-size: 1rem;
     }
+    /* Logo Container */
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 </head>
 <body>
+  <div class="logo-container">
+    <a href="../index.html"><img src="../images/logos/LogoB_NoBG.png" alt="Logo" class="logo"></a>
+</div>
   <h1>Gesture to Translation</h1>
   <div class="video-container">
     <video id="myvideo" autoplay playsinline width="640" height="480"></video>
