@@ -3,15 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" src="style.css">
-  <title>Advanced Gesture Detection</title>
+  <title>Advanced Gesture Detection - Both Hands</title>
   <style>
-
-    
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #3498db, #84b1da);
-
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -40,93 +35,96 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    #gesture-label {
+    .gesture-label {
       margin-top: 20px;
-      font-size: 3rem; /* Twice as big as before */
+      font-size: 1.5rem;
       font-weight: bold;
-      color: #000000;
+      color: #333;
     }
-    .logo-container {
-    margin-bottom: 20px;
-}
 
-.logo {
-    width: 120px;
-    height: auto;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
+    .gesture-result {
+      font-size: 2rem;
+      color: #4CAF50;
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-  <link rel="shortcut icon" href="../images/logos/ICOLogoW_NoBG.ico" type="image/x-icon">
 </head>
 <body>
-  <div class="logo-container">
-    <a href="../index.html"><img src="../images/logos/LogoB_NoBG.png" alt="Logo" class="logo"></a> 
-</div>
-  <h1>Advanced Gesture Detection</h1>
+  <h1>Advanced Gesture Detection - Both Hands</h1>
   <div class="video-container">
     <video id="myvideo" autoplay playsinline width="640" height="480"></video>
     <canvas id="canvas" width="640" height="480"></canvas>
   </div>
-  <div id="gesture-label">Gesture: <span id="gesture-result">None</span></div>
+  <div id="gesture-label-left" class="gesture-label">Left Hand: <span id="gesture-result-left">None</span></div>
+  <div id="gesture-label-right" class="gesture-label">Right Hand: <span id="gesture-result-right">None</span></div>
 
   <script>
     const video = document.getElementById('myvideo');
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
-    const gestureResult = document.getElementById('gesture-result');
+    const gestureResultLeft = document.getElementById('gesture-result-left');
+    const gestureResultRight = document.getElementById('gesture-result-right');
 
     const hands = new Hands({
       locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
     });
 
     hands.setOptions({
-      maxNumHands: 1,
+      maxNumHands: 2,
       modelComplexity: 1,
       minDetectionConfidence: 0.7,
       minTrackingConfidence: 0.7,
     });
 
     hands.onResults((results) => {
-      context.clearRect(0, 0, canvas.width, canvas.height);
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
-      if (results.multiHandLandmarks.length > 0) {
-        const landmarks = results.multiHandLandmarks[0];
-        drawConnectors(context, landmarks, HAND_CONNECTIONS, { color: '#00FF00', lineWidth: 4 });
-        drawLandmarks(context, landmarks, { color: '#FF0000', lineWidth: 2 });
+  if (results.multiHandLandmarks) {
+    results.multiHandLandmarks.forEach((landmarks, index) => {
+      drawConnectors(context, landmarks, HAND_CONNECTIONS, { color: '#00FF00', lineWidth: 4 });
+      drawLandmarks(context, landmarks, { color: '#FF0000', lineWidth: 2 });
 
-        // Detect gestures
-        if (isVictoryGesture(landmarks)) {
-            gestureResult.style.color="red";
-          gestureResult.textContent = "Medication";
-        }  else if (isRockGesture(landmarks)) {
-            gestureResult.style.color="green";
-          gestureResult.textContent = "Happy";
-        } else if (isOkGesture(landmarks)) {
-            gestureResult.style.color="#ffa700";
-          gestureResult.textContent = "OK";
-        } else if (isOpenHand(landmarks)) {
-            gestureResult.style.color="green";
-          gestureResult.textContent = "Hello";
-        } else if (isClosedHand(landmarks)) {
-            gestureResult.style.color="red";
-          gestureResult.textContent = "HELP";
-        } else if (isPointingGesture(landmarks)) {
-            gestureResult.style.color="red";
-          gestureResult.textContent = "Washroom";
-        } else {
-            gestureResult.style.color="black";
-          gestureResult.textContent = "Unknown";
-        }
+      const handLabel = results.multiHandedness[index].label; // 'Left' or 'Right'
+      const isLeftHand = handLabel === 'Left';
+      const gestureResult = isLeftHand ? gestureResultLeft : gestureResultRight;
+
+      if (isPinkyGesture(landmarks)) {
+        gestureResult.style.color = "red";
+        gestureResult.textContent = "Washroom";
+      } else if (isVictoryGesture(landmarks)) {
+        gestureResult.style.color = "red";
+        gestureResult.textContent = "Medication";
+      } else if (isRockGesture(landmarks)) {
+        gestureResult.style.color = "green";
+        gestureResult.textContent = "Happy";
+      } else if (isOkGesture(landmarks)) {
+        gestureResult.style.color = "#ffa700";
+        gestureResult.textContent = "OK";
+      } else if (isOpenHand(landmarks)) {
+        gestureResult.style.color = "green";
+        gestureResult.textContent = "Hello";
+      } else if (isClosedHand(landmarks)) {
+        gestureResult.style.color = "red";
+        gestureResult.textContent = "HELP";
+      } else if (isPointingGesture(landmarks)) {
+        gestureResult.style.color = "green";
+        gestureResult.textContent = "Yes";
       } else {
-        gestureResult.style.color="black";
-        gestureResult.textContent = "None";
+        gestureResult.style.color = "grey";
+        gestureResult.textContent = "Unknown";
       }
     });
+  } else {
+    gestureResultLeft.style.color = "grey";
+    gestureResultLeft.textContent = "None";
+    gestureResultRight.style.color = "grey";
+    gestureResultRight.textContent = "None";
+  }
+});
 
-    // Gesture detection functions
+ // Gesture detection functions
 
     // Victory: Index and middle fingers extended, others bent
     const isVictoryGesture = (landmarks) => {
@@ -182,6 +180,24 @@
              landmarks[16].y > landmarks[14].y && // Ring finger bent
              landmarks[20].y > landmarks[18].y;   // Pinky bent
     };
+
+    // Pinky Gesture: Only pinky finger extended
+    const isPinkyGesture = (landmarks) => {
+  const threshold = 0.01; // The "fully extended" threshold (adjust as necessary)
+  
+  return (
+    landmarks[20].y < landmarks[18].y && // Pinky tip above PIP joint
+    landmarks[20].y < landmarks[19].y && // Pinky tip above DIP joint
+    (landmarks[18].y - landmarks[20].y) > threshold && // Significant extension
+    (landmarks[19].y - landmarks[20].y) > threshold && // Significant extension
+    landmarks[8].y > landmarks[6].y && // Index finger bent
+    landmarks[12].y > landmarks[10].y && // Middle finger bent
+    landmarks[16].y > landmarks[14].y // Ring finger bent
+  );
+};
+
+
+
 
 
     const startVideo = async () => {
