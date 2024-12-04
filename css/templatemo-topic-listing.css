@@ -536,31 +536,27 @@ strong {
 }
 
 .custom-block {
-  border-radius: var(--border-radius-medium);
-  position: relative;
-  overflow: hidden;
-  padding: 30px;
-  transition: all 0.3s ease;
-  height: 100%;
-  background: linear-gradient(135deg, #dbe5f9, #81cfde); /* Light blue gradient */
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 150px; /* Adjust as needed */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .custom-block:hover {
-  background: linear-gradient(135deg, #91bbf8, #a9cef1); /* Slightly darker light blue on hover */
-  transform: translateY(-3px);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .custom-block > a {
   width: 100%;
 }
 
-.custom-block-image {
-  display: block;
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  margin-top: 35px;
-}
 
 .custom-block .rounded-pill {
   border-radius: 5px !important;
