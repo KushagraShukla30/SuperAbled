@@ -15,7 +15,7 @@ https://youtu.be/HtHeo5inQLE
 
 Deployment : https://superabled.vercel.app/
 
-Launch Index.html in the root folder
+Launch Index.html present in the root folder
 
 Run on localhost
 
@@ -44,11 +44,21 @@ JS, Clipdrop API (speech to image)
 - **Text to Speech:** – BReads written content aloud for auditory accessibility.
 - **Gesture Communication:** – Enables expression through hand signals and body language.
 - **Speech to Image:** – Transforms verbal descriptions into relevant images or visuals.
+- **Sign to Translated language:** – Translates sign language gestures into different national and international languages.
+
 
 
 ## Screenshots
 
 ![App Screenshot](https://i.ibb.co/M7r0G6p/image.png)
+![App Screenshot](https://i.ibb.co/F6YZzr1/image.png)
+![App Screenshot](https://i.ibb.co/ZJ6GwKc/image.png)
+![App Screenshot](https://i.ibb.co/cvMyf9C/image.png)
+![App Screenshot](https://i.ibb.co/B6jxXSz/image.png)
+![App Screenshot](https://i.ibb.co/hRPqhbM/image.png)
+![App Screenshot](https://i.ibb.co/RgDQ5wP/image.png)
+
+
 
 
 
