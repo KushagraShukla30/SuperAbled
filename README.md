@@ -11,7 +11,7 @@ SuperAbled is an innovative communication tool designed to empower individuals w
 https://youtu.be/HtHeo5inQLE
 
     
-## Try it Yourself
+## Try it
 
 Deployment : https://superabled.vercel.app/
 
